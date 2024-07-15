@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "valors",
+  "info": {
+    "singularName": "valor",
+    "pluralName": "valors",
+    "displayName": "Valor"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string",
+      "required": true
+    },
+    "precio": {
+      "type": "biginteger"
+    },
+    "detalle": {
+      "type": "text"
+    },
+    "tiempo": {
+      "type": "biginteger"
+    }
+  }
+}

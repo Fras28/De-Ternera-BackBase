@@ -1,0 +1,46 @@
+{
+  "kind": "collectionType",
+  "collectionName": "reservas",
+  "info": {
+    "singularName": "reserva",
+    "pluralName": "reservas",
+    "displayName": "reserva",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombreCliente": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "fecha": {
+      "type": "date"
+    },
+    "hora": {
+      "type": "time"
+    },
+    "comercio": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::comercio.comercio",
+      "inversedBy": "reservas"
+    },
+    "prestador": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::prestador.prestador",
+      "inversedBy": "reservas"
+    },
+    "precio": {
+      "type": "biginteger"
+    },
+    "Nticket": {
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "kind": "collectionType",
+  "collectionName": "comercios",
+  "info": {
+    "singularName": "comercio",
+    "pluralName": "comercios",
+    "displayName": "comercio",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "direccion": {
+      "type": "string"
+    },
+    "telefono": {
+      "type": "biginteger"
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "prestadors": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::prestador.prestador",
+      "mappedBy": "comercios"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "reservas": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::reserva.reserva",
+      "mappedBy": "comercio"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "mappedBy": "comercio"
+    }
+  }
+}
