@@ -43,8 +43,8 @@ module.exports = {
           }
         },
         back_urls: {
-          success: `${process.env.FRONTEND_URL}/success`,
-          failure: `${process.env.FRONTEND_URL}/failure`,
+          success: `${process.env.FRONTEND_URL}/exito`,
+          failure: `${process.env.FRONTEND_URL}/error`,
           pending: `${process.env.FRONTEND_URL}/pending`
         },
         auto_return: "approved",
