@@ -838,6 +838,44 @@ export interface ApiComercioComercio extends Schema.CollectionType {
   };
 }
 
+export interface ApiHorarioHorario extends Schema.CollectionType {
+  collectionName: 'horarios';
+  info: {
+    singularName: 'horario';
+    pluralName: 'horarios';
+    displayName: 'Horario';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    hora_inicio: Attribute.Time;
+    hora_fin: Attribute.Time;
+    fecha_inicio: Attribute.Date;
+    fecha_fin: Attribute.Date;
+    diaSemana: Attribute.Enumeration<
+      ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
+    > &
+      Attribute.Required;
+    recurrente: Attribute.Boolean;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::horario.horario',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::horario.horario',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPrestadorPrestador extends Schema.CollectionType {
   collectionName: 'prestadores';
   info: {
@@ -876,6 +914,11 @@ export interface ApiPrestadorPrestador extends Schema.CollectionType {
       'api::prestador.prestador',
       'oneToMany',
       'api::valor.valor'
+    >;
+    horarios: Attribute.Relation<
+      'api::prestador.prestador',
+      'oneToMany',
+      'api::horario.horario'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -993,6 +1036,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::comercio.comercio': ApiComercioComercio;
+      'api::horario.horario': ApiHorarioHorario;
       'api::prestador.prestador': ApiPrestadorPrestador;
       'api::reserva.reserva': ApiReservaReserva;
       'api::valor.valor': ApiValorValor;

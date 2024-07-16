@@ -68,6 +68,11 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::valor.valor"
+    },
+    "horarios": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::horario.horario"
     }
   }
 }

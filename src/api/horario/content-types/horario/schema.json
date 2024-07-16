@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "horarios",
+  "info": {
+    "singularName": "horario",
+    "pluralName": "horarios",
+    "displayName": "Horario"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "hora_inicio": {
+      "type": "time"
+    },
+    "hora_fin": {
+      "type": "time"
+    },
+    "fecha_inicio": {
+      "type": "date"
+    },
+    "fecha_fin": {
+      "type": "date"
+    },
+    "diaSemana": {
+      "type": "enumeration",
+      "enum": [
+        "lunes",
+        "martes",
+        "miercoles",
+        "jueves",
+        "viernes",
+        "sabado",
+        "domingo"
+      ],
+      "required": true
+    },
+    "recurrente": {
+      "type": "boolean"
+    }
+  }
+}
