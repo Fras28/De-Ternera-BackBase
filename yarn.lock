@@ -6868,7 +6868,7 @@ memoize-one@^6.0.0:
 
 mercadopago@^2.0.11:
   version "2.0.11"
-  resolved "https://registry.npmjs.org/mercadopago/-/mercadopago-2.0.11.tgz"
+  resolved "https://registry.yarnpkg.com/mercadopago/-/mercadopago-2.0.11.tgz#0f475adab3d0e4041153227d731d177a7cd7c04c"
   integrity sha512-jK/cqjNqBwSrxl1WrQ9UDwoy3BcFuHG3CKKa5EpQhqQyAbfIf2QjIs01Gw65v+94tL4brTrFgb1Ad8PSSCVPRQ==
   dependencies:
     node-fetch "^2.6.12"
