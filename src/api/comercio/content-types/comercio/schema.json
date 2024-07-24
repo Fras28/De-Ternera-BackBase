@@ -24,12 +24,6 @@
     "instagram": {
       "type": "string"
     },
-    "prestadors": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::prestador.prestador",
-      "mappedBy": "comercios"
-    },
     "logo": {
       "type": "media",
       "multiple": false,
@@ -41,17 +35,23 @@
         "audios"
       ]
     },
-    "reservas": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::reserva.reserva",
-      "mappedBy": "comercio"
-    },
     "user": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
       "mappedBy": "comercio"
+    },
+    "categorias": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::categoria.categoria",
+      "mappedBy": "comercio"
+    },
+    "hora_inicio": {
+      "type": "time"
+    },
+    "hora_cierre": {
+      "type": "time"
     }
   }
 }

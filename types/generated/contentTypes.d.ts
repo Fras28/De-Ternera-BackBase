@@ -788,6 +788,154 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiArticuloArticulo extends Schema.CollectionType {
+  collectionName: 'articulos';
+  info: {
+    singularName: 'articulo';
+    pluralName: 'articulos';
+    displayName: 'Articulo';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    nombre: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.SetMinMaxLength<{
+        minLength: 3;
+      }>;
+    detalle: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.SetMinMaxLength<{
+        maxLength: 150;
+      }>;
+    contador: Attribute.BigInteger &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<'0'>;
+    promocion: Attribute.Boolean &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<false>;
+    precioKG: Attribute.BigInteger &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }> &
+      Attribute.DefaultTo<'0'>;
+    img: Attribute.Media<'images' | 'videos', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    sub_categoria: Attribute.Relation<
+      'api::articulo.articulo',
+      'manyToOne',
+      'api::sub-categoria.sub-categoria'
+    >;
+    valors: Attribute.Relation<
+      'api::articulo.articulo',
+      'oneToMany',
+      'api::valor.valor'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::articulo.articulo',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::articulo.articulo',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::articulo.articulo',
+      'oneToMany',
+      'api::articulo.articulo'
+    >;
+    locale: Attribute.String;
+  };
+}
+
+export interface ApiCategoriaCategoria extends Schema.CollectionType {
+  collectionName: 'categorias';
+  info: {
+    singularName: 'categoria';
+    pluralName: 'categorias';
+    displayName: 'Categoria';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    nombre: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        minLength: 3;
+        maxLength: 20;
+      }>;
+    img: Attribute.Media<'images', true>;
+    detalle: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 150;
+      }>;
+    comercio: Attribute.Relation<
+      'api::categoria.categoria',
+      'manyToOne',
+      'api::comercio.comercio'
+    >;
+    sub_categorias: Attribute.Relation<
+      'api::categoria.categoria',
+      'oneToMany',
+      'api::sub-categoria.sub-categoria'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::categoria.categoria',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::categoria.categoria',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 export interface ApiComercioComercio extends Schema.CollectionType {
   collectionName: 'comercios';
   info: {
@@ -804,71 +952,30 @@ export interface ApiComercioComercio extends Schema.CollectionType {
     direccion: Attribute.String;
     telefono: Attribute.BigInteger;
     instagram: Attribute.String;
-    prestadors: Attribute.Relation<
-      'api::comercio.comercio',
-      'manyToMany',
-      'api::prestador.prestador'
-    >;
     logo: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    reservas: Attribute.Relation<
-      'api::comercio.comercio',
-      'oneToMany',
-      'api::reserva.reserva'
-    >;
     user: Attribute.Relation<
       'api::comercio.comercio',
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
+    categorias: Attribute.Relation<
       'api::comercio.comercio',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::comercio.comercio',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiHorarioHorario extends Schema.CollectionType {
-  collectionName: 'horarios';
-  info: {
-    singularName: 'horario';
-    pluralName: 'horarios';
-    displayName: 'Horario';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
+      'oneToMany',
+      'api::categoria.categoria'
+    >;
     hora_inicio: Attribute.Time;
-    hora_fin: Attribute.Time;
-    fecha_inicio: Attribute.Date;
-    fecha_fin: Attribute.Date;
-    diaSemana: Attribute.Enumeration<
-      ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo']
-    > &
-      Attribute.Required;
-    recurrente: Attribute.Boolean;
+    hora_cierre: Attribute.Time;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::horario.horario',
+      'api::comercio.comercio',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::horario.horario',
+      'api::comercio.comercio',
       'oneToOne',
       'admin::user'
     > &
@@ -876,13 +983,12 @@ export interface ApiHorarioHorario extends Schema.CollectionType {
   };
 }
 
-export interface ApiPrestadorPrestador extends Schema.CollectionType {
-  collectionName: 'prestadores';
+export interface ApiSubCategoriaSubCategoria extends Schema.CollectionType {
+  collectionName: 'sub_categorias';
   info: {
-    singularName: 'prestador';
-    pluralName: 'prestadores';
-    displayName: 'prestador';
-    description: '';
+    singularName: 'sub-categoria';
+    pluralName: 'sub-categorias';
+    displayName: 'SubCategoria';
   };
   options: {
     draftAndPublish: true;
@@ -892,91 +998,29 @@ export interface ApiPrestadorPrestador extends Schema.CollectionType {
       Attribute.Required &
       Attribute.SetMinMaxLength<{
         minLength: 3;
-        maxLength: 20;
       }>;
-    telefono: Attribute.BigInteger;
-    comercios: Attribute.Relation<
-      'api::prestador.prestador',
-      'manyToMany',
-      'api::comercio.comercio'
-    >;
-    Servicio: Attribute.Text;
-    link: Attribute.String;
-    avatar: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
-    fondoPerfil: Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     detalle: Attribute.Text;
-    reservas: Attribute.Relation<
-      'api::prestador.prestador',
-      'oneToMany',
-      'api::reserva.reserva'
+    categoria: Attribute.Relation<
+      'api::sub-categoria.sub-categoria',
+      'manyToOne',
+      'api::categoria.categoria'
     >;
-    valors: Attribute.Relation<
-      'api::prestador.prestador',
+    articulos: Attribute.Relation<
+      'api::sub-categoria.sub-categoria',
       'oneToMany',
-      'api::valor.valor'
-    >;
-    horarios: Attribute.Relation<
-      'api::prestador.prestador',
-      'oneToMany',
-      'api::horario.horario'
+      'api::articulo.articulo'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
-      'api::prestador.prestador',
+      'api::sub-categoria.sub-categoria',
       'oneToOne',
       'admin::user'
     > &
       Attribute.Private;
     updatedBy: Attribute.Relation<
-      'api::prestador.prestador',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiReservaReserva extends Schema.CollectionType {
-  collectionName: 'reservas';
-  info: {
-    singularName: 'reserva';
-    pluralName: 'reservas';
-    displayName: 'reserva';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    nombreCliente: Attribute.String;
-    email: Attribute.Email;
-    fecha: Attribute.Date;
-    hora: Attribute.Time;
-    comercio: Attribute.Relation<
-      'api::reserva.reserva',
-      'manyToOne',
-      'api::comercio.comercio'
-    >;
-    prestador: Attribute.Relation<
-      'api::reserva.reserva',
-      'manyToOne',
-      'api::prestador.prestador'
-    >;
-    precio: Attribute.BigInteger;
-    Nticket: Attribute.Text;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::reserva.reserva',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::reserva.reserva',
+      'api::sub-categoria.sub-categoria',
       'oneToOne',
       'admin::user'
     > &
@@ -1035,10 +1079,10 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::articulo.articulo': ApiArticuloArticulo;
+      'api::categoria.categoria': ApiCategoriaCategoria;
       'api::comercio.comercio': ApiComercioComercio;
-      'api::horario.horario': ApiHorarioHorario;
-      'api::prestador.prestador': ApiPrestadorPrestador;
-      'api::reserva.reserva': ApiReservaReserva;
+      'api::sub-categoria.sub-categoria': ApiSubCategoriaSubCategoria;
       'api::valor.valor': ApiValorValor;
     }
   }

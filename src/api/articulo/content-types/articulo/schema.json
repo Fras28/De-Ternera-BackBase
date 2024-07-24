@@ -1,0 +1,92 @@
+{
+  "kind": "collectionType",
+  "collectionName": "articulos",
+  "info": {
+    "singularName": "articulo",
+    "pluralName": "articulos",
+    "displayName": "Articulo",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "nombre": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true,
+      "minLength": 3
+    },
+    "detalle": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text",
+      "maxLength": 150
+    },
+    "contador": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "biginteger",
+      "default": "0"
+    },
+    "promocion": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "boolean",
+      "default": false
+    },
+    "precioKG": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "biginteger",
+      "required": true,
+      "default": "0"
+    },
+    "img": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "sub_categoria": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::sub-categoria.sub-categoria",
+      "inversedBy": "articulos"
+    },
+    "valors": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::valor.valor"
+    }
+  }
+}

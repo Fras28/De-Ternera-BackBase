@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * horario router
+ * articulo router
  */
 
 const { createCoreRouter } = require('@strapi/strapi').factories;
 
-module.exports = createCoreRouter('api::horario.horario');
+module.exports = createCoreRouter('api::articulo.articulo');

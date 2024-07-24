@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * reserva controller
+ * articulo controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::reserva.reserva');
+module.exports = createCoreController('api::articulo.articulo');
