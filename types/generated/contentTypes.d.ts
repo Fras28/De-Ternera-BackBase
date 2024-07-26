@@ -1034,15 +1034,16 @@ export interface ApiValorValor extends Schema.CollectionType {
     singularName: 'valor';
     pluralName: 'valors';
     displayName: 'Valor';
+    description: '';
   };
   options: {
     draftAndPublish: true;
   };
   attributes: {
     nombre: Attribute.String & Attribute.Required;
-    precio: Attribute.BigInteger;
+    GrsPorcion: Attribute.Float;
     detalle: Attribute.Text;
-    tiempo: Attribute.BigInteger;
+    extra: Attribute.BigInteger;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

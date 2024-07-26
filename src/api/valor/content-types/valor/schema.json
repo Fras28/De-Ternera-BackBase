@@ -4,7 +4,8 @@
   "info": {
     "singularName": "valor",
     "pluralName": "valors",
-    "displayName": "Valor"
+    "displayName": "Valor",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,13 +16,13 @@
       "type": "string",
       "required": true
     },
-    "precio": {
-      "type": "biginteger"
+    "GrsPorcion": {
+      "type": "float"
     },
     "detalle": {
       "type": "text"
     },
-    "tiempo": {
+    "extra": {
       "type": "biginteger"
     }
   }
