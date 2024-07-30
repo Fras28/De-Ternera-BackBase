@@ -4,7 +4,8 @@
   "info": {
     "singularName": "pedido",
     "pluralName": "pedidos",
-    "displayName": "Pedido"
+    "displayName": "Pedido",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,17 +17,19 @@
       "relation": "oneToMany",
       "target": "api::articulo.articulo"
     },
-    "users_permissions_user": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "pedido"
-    },
     "comercio": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::comercio.comercio",
       "inversedBy": "pedidos"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user"
+    },
+    "total": {
+      "type": "biginteger"
     }
   }
 }

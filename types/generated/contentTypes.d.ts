@@ -965,6 +965,11 @@ export interface ApiComercioComercio extends Schema.CollectionType {
     >;
     hora_inicio: Attribute.Time;
     hora_cierre: Attribute.Time;
+    pedidos: Attribute.Relation<
+      'api::comercio.comercio',
+      'oneToMany',
+      'api::pedido.pedido'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -976,6 +981,52 @@ export interface ApiComercioComercio extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::comercio.comercio',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPedidoPedido extends Schema.CollectionType {
+  collectionName: 'pedidos';
+  info: {
+    singularName: 'pedido';
+    pluralName: 'pedidos';
+    displayName: 'Pedido';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    articulos: Attribute.Relation<
+      'api::pedido.pedido',
+      'oneToMany',
+      'api::articulo.articulo'
+    >;
+    comercio: Attribute.Relation<
+      'api::pedido.pedido',
+      'manyToOne',
+      'api::comercio.comercio'
+    >;
+    user: Attribute.Relation<
+      'api::pedido.pedido',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
+    total: Attribute.BigInteger;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pedido.pedido',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pedido.pedido',
       'oneToOne',
       'admin::user'
     > &
@@ -1083,6 +1134,7 @@ declare module '@strapi/types' {
       'api::articulo.articulo': ApiArticuloArticulo;
       'api::categoria.categoria': ApiCategoriaCategoria;
       'api::comercio.comercio': ApiComercioComercio;
+      'api::pedido.pedido': ApiPedidoPedido;
       'api::sub-categoria.sub-categoria': ApiSubCategoriaSubCategoria;
       'api::valor.valor': ApiValorValor;
     }
