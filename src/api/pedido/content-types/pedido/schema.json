@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pedidos",
+  "info": {
+    "singularName": "pedido",
+    "pluralName": "pedidos",
+    "displayName": "Pedido"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "articulos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::articulo.articulo"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "pedido"
+    },
+    "comercio": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::comercio.comercio",
+      "inversedBy": "pedidos"
+    }
+  }
+}

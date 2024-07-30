@@ -52,6 +52,12 @@
     },
     "hora_cierre": {
       "type": "time"
+    },
+    "pedidos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pedido.pedido",
+      "mappedBy": "comercio"
     }
   }
 }
