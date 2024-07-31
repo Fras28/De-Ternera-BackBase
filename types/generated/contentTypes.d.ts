@@ -862,6 +862,12 @@ export interface ApiArticuloArticulo extends Schema.CollectionType {
       'oneToMany',
       'api::valor.valor'
     >;
+    DescPorciento: Attribute.Integer &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
