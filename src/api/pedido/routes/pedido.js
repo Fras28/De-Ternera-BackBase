@@ -26,7 +26,7 @@ const extraRoutes = [
       policies: [],
       auth: false,
     },
-  },
+  }
 ];
 
 module.exports = customRouter(defaultRouter, extraRoutes);

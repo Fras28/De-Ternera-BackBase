@@ -4,36 +4,58 @@ const { createCoreController } = require('@strapi/strapi').factories;
 
 module.exports = createCoreController('api::pedido.pedido', ({ strapi }) => ({
   async findWithUser(ctx) {
-    const pedidos = await strapi.entityService.findMany('api::pedido.pedido', {
-      populate: ['user', 'articulos', 'comercio'],
-    });
+    let userId = ctx.query.userId;
 
-    const simplifiedPedidos = pedidos.map(pedido => ({
-      id: pedido.id,
-      total: pedido.total,
-      createdAt: pedido.createdAt,
-      updatedAt: pedido.updatedAt,
-      publishedAt: pedido.publishedAt,
-      user: pedido.user ? {
-        id: pedido.user.id,
-        username: pedido.user.username,
-        confirmed: pedido.user.confirmed,
-        createdAt: pedido.user.createdAt,
-        updatedAt: pedido.user.updatedAt
-      } : null,
-      articulos: pedido.articulos.map(articulo => ({
-        id: articulo.id,
-        nombre: articulo.nombre,
-        precioKG: articulo.precioKG,
-        DescPorciento: articulo.DescPorciento
-      })),
-      comercio: pedido.comercio ? {
-        id: pedido.comercio.id,
-        nombre: pedido.comercio.nombre,
-        telefono: pedido.comercio.telefono
-      } : null
-    }));
+    // Manejo de userId si es un array
+    if (Array.isArray(userId)) {
+      userId = userId[0]; // Tomamos el primer elemento si es un array
+    }
 
-    return { data: simplifiedPedidos };
+    try {
+      const filters = userId ? { 
+        $and: [
+          {
+            user: {
+              id: {
+                $eq: parseInt(userId)
+              }
+            }
+          }
+        ]
+      } : {};
+
+      const { results, pagination } = await strapi.service('api::pedido.pedido').find({
+        filters,
+        populate: {
+          user: {
+            fields: ['id', 'username', 'confirmed', 'createdAt', 'updatedAt']
+          },
+          articulos: {
+            fields: ['id', 'nombre', 'precioKG', 'DescPorciento']
+          },
+          comercio: {
+            fields: ['id', 'nombre', 'telefono']
+          }
+        }
+      });
+
+      const simplifiedPedidos = results.map(pedido => ({
+        id: pedido.id,
+        total: pedido.total,
+        createdAt: pedido.createdAt,
+        updatedAt: pedido.updatedAt,
+        publishedAt: pedido.publishedAt,
+        user: pedido.user,
+        articulos: pedido.articulos,
+        comercio: pedido.comercio
+      }));
+
+      return { 
+        data: simplifiedPedidos,
+        meta: { pagination }
+      };
+    } catch (error) {
+      ctx.throw(500, `Error al buscar pedidos: ${error.message}`);
+    }
   },
 }));
