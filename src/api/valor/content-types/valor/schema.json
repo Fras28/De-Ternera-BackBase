@@ -17,7 +17,7 @@
       "required": true
     },
     "GrsPorcion": {
-      "type": "float"
+      "type": "biginteger"
     },
     "detalle": {
       "type": "text"

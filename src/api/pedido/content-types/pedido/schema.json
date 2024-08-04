@@ -12,11 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "articulos": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::articulo.articulo"
-    },
     "comercio": {
       "type": "relation",
       "relation": "manyToOne",
@@ -30,6 +25,22 @@
     },
     "total": {
       "type": "biginteger"
+    },
+    "estado": {
+      "type": "enumeration",
+      "enum": [
+        "pendiente",
+        "en_proceso",
+        "completado",
+        "cancelado"
+      ],
+      "default": "pendiente"
+    },
+    "pedido_articulos": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::pedido-articulo.pedido-articulo",
+      "mappedBy": "pedido"
     }
   }
 }

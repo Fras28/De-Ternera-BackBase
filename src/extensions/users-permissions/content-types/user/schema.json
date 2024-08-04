@@ -68,8 +68,7 @@
     "pedidos": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::pedido.pedido",
-      "mappedBy": "user"
+      "target": "api::pedido.pedido"
     }
   }
 }

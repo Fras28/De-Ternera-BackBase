@@ -1006,11 +1006,6 @@ export interface ApiPedidoPedido extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    articulos: Attribute.Relation<
-      'api::pedido.pedido',
-      'oneToMany',
-      'api::articulo.articulo'
-    >;
     comercio: Attribute.Relation<
       'api::pedido.pedido',
       'manyToOne',
@@ -1022,6 +1017,15 @@ export interface ApiPedidoPedido extends Schema.CollectionType {
       'plugin::users-permissions.user'
     >;
     total: Attribute.BigInteger;
+    estado: Attribute.Enumeration<
+      ['pendiente', 'en_proceso', 'completado', 'cancelado']
+    > &
+      Attribute.DefaultTo<'pendiente'>;
+    pedido_articulos: Attribute.Relation<
+      'api::pedido.pedido',
+      'oneToMany',
+      'api::pedido-articulo.pedido-articulo'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1033,6 +1037,49 @@ export interface ApiPedidoPedido extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::pedido.pedido',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPedidoArticuloPedidoArticulo extends Schema.CollectionType {
+  collectionName: 'pedido_articulos';
+  info: {
+    singularName: 'pedido-articulo';
+    pluralName: 'pedido-articulos';
+    displayName: 'Pedido_Articulo';
+  };
+  attributes: {
+    cantidad: Attribute.BigInteger;
+    precio_unitario: Attribute.Decimal;
+    subtotal: Attribute.Decimal;
+    pedido: Attribute.Relation<
+      'api::pedido-articulo.pedido-articulo',
+      'manyToOne',
+      'api::pedido.pedido'
+    >;
+    articulo: Attribute.Relation<
+      'api::pedido-articulo.pedido-articulo',
+      'oneToOne',
+      'api::articulo.articulo'
+    >;
+    valor: Attribute.Relation<
+      'api::pedido-articulo.pedido-articulo',
+      'oneToOne',
+      'api::valor.valor'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::pedido-articulo.pedido-articulo',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::pedido-articulo.pedido-articulo',
       'oneToOne',
       'admin::user'
     > &
@@ -1098,7 +1145,7 @@ export interface ApiValorValor extends Schema.CollectionType {
   };
   attributes: {
     nombre: Attribute.String & Attribute.Required;
-    GrsPorcion: Attribute.Float;
+    GrsPorcion: Attribute.BigInteger;
     detalle: Attribute.Text;
     extra: Attribute.BigInteger;
     createdAt: Attribute.DateTime;
@@ -1141,6 +1188,7 @@ declare module '@strapi/types' {
       'api::categoria.categoria': ApiCategoriaCategoria;
       'api::comercio.comercio': ApiComercioComercio;
       'api::pedido.pedido': ApiPedidoPedido;
+      'api::pedido-articulo.pedido-articulo': ApiPedidoArticuloPedidoArticulo;
       'api::sub-categoria.sub-categoria': ApiSubCategoriaSubCategoria;
       'api::valor.valor': ApiValorValor;
     }

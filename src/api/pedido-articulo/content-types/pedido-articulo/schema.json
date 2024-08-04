@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pedido_articulos",
+  "info": {
+    "singularName": "pedido-articulo",
+    "pluralName": "pedido-articulos",
+    "displayName": "Pedido_Articulo"
+  },
+  "attributes": {
+    "cantidad": {
+      "type": "biginteger"
+    },
+    "precio_unitario": {
+      "type": "decimal"
+    },
+    "subtotal": {
+      "type": "decimal"
+    },
+    "pedido": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::pedido.pedido",
+      "inversedBy": "pedido_articulos"
+    },
+    "articulo": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::articulo.articulo"
+    },
+    "valor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::valor.valor"
+    }
+  }
+}
