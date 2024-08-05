@@ -1050,11 +1050,15 @@ export interface ApiPedidoArticuloPedidoArticulo extends Schema.CollectionType {
     singularName: 'pedido-articulo';
     pluralName: 'pedido-articulos';
     displayName: 'Pedido_Articulo';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
   };
   attributes: {
     cantidad: Attribute.BigInteger;
-    precio_unitario: Attribute.Decimal;
-    subtotal: Attribute.Decimal;
+    precio_unitario: Attribute.BigInteger;
+    subtotal: Attribute.BigInteger;
     pedido: Attribute.Relation<
       'api::pedido-articulo.pedido-articulo',
       'manyToOne',

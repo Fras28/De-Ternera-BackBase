@@ -4,17 +4,21 @@
   "info": {
     "singularName": "pedido-articulo",
     "pluralName": "pedido-articulos",
-    "displayName": "Pedido_Articulo"
+    "displayName": "Pedido_Articulo",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
   },
   "attributes": {
     "cantidad": {
       "type": "biginteger"
     },
     "precio_unitario": {
-      "type": "decimal"
+      "type": "biginteger"
     },
     "subtotal": {
-      "type": "decimal"
+      "type": "biginteger"
     },
     "pedido": {
       "type": "relation",
