@@ -29,9 +29,10 @@
     "estado": {
       "type": "enumeration",
       "enum": [
+        "xxxx",
         "pendiente",
         "en_proceso",
-        "completado",
+        "finalizado",
         "cancelado"
       ],
       "default": "pendiente"

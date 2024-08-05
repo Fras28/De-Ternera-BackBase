@@ -1018,7 +1018,7 @@ export interface ApiPedidoPedido extends Schema.CollectionType {
     >;
     total: Attribute.BigInteger;
     estado: Attribute.Enumeration<
-      ['pendiente', 'en_proceso', 'completado', 'cancelado']
+      ['xxxx', 'pendiente', 'en_proceso', 'finalizado', 'cancelado']
     > &
       Attribute.DefaultTo<'pendiente'>;
     pedido_articulos: Attribute.Relation<
