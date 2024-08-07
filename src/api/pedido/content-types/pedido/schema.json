@@ -42,6 +42,10 @@
       "relation": "oneToMany",
       "target": "api::pedido-articulo.pedido-articulo",
       "mappedBy": "pedido"
+    },
+    "detalle": {
+      "type": "text",
+      "maxLength": 150
     }
   }
 }

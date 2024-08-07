@@ -1026,6 +1026,10 @@ export interface ApiPedidoPedido extends Schema.CollectionType {
       'oneToMany',
       'api::pedido-articulo.pedido-articulo'
     >;
+    detalle: Attribute.Text &
+      Attribute.SetMinMaxLength<{
+        maxLength: 150;
+      }>;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
