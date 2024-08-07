@@ -67,6 +67,15 @@
     },
     "direccion": {
       "type": "string"
+    },
+    "apellido": {
+      "type": "string"
+    },
+    "telefono": {
+      "type": "biginteger",
+      "max": "9999999999",
+      "min": "9999999999",
+      "default": "291"
     }
   }
 }
